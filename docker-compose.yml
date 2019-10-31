@@ -1,0 +1,25 @@
+# docker-compose for Mongo
+
+version: '3.1'
+
+networks:
+  project:
+
+services:
+  mongo:
+    image: mongo:4.2.0-bionic
+    container_name: "mongo"
+    command: mongod
+    environment:
+      - MONGO_DATA_DIR=/mongo/data
+      - MONGO_LOG_DIR=/mongo/logs
+      - MONGODB_USER="user"
+      - MONGODB_PASS="pass"
+    volumes:
+      - ./data:/mongo/data
+      - ./config/hosts:/etc/hosts
+      - ./config/mongod.conf:/etc/mongod.conf
+    ports:
+      - 27017:27017
+    networks:
+      - project
